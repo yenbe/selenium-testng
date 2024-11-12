@@ -8,7 +8,7 @@ public class topic_02_demo {
         System.out.println("x = " + x);
         System.out.println("y = " + y);
 
-        x = 25;
+        x = 23;
         System.out.println("x = " + x);
         System.out.println("y = " + y);
     }
