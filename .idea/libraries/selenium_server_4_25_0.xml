@@ -1,7 +1,8 @@
 <component name="libraryTable">
   <library name="selenium-server-4.25.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libraries/selenium-server-4.25.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/testng-7.10.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/selenium-server-4.26.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
