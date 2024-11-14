@@ -18,6 +18,7 @@ public class topic_02_demo {
         topic_02_demo a = new topic_02_demo();
         a.x = 5;
         System.out.println("a.x = " + a.x);
+
         topic_02_demo d = a;
         System.out.println("d.x = " + d.x);
         a.x = 200;
