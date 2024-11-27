@@ -98,7 +98,7 @@ public class Topic_05_WebBrowser_Commands {
 
         // Mo 1 URL moi
         driver.navigate().to("");
-        driver.navigate().to(new URL(""));
+        //driver.navigate().to(new URL(""));
 
     }
 
