@@ -115,6 +115,7 @@ public class Topic_08_Element_Excercise {
         By signupButton = By.id("create-account-enabled");
 
         driver.findElement(By.id("email")).sendKeys("yen@gmail.com");
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement(signupButton));
         driver.findElement(signupButton).click();
 
         Thread.sleep(3000);
@@ -193,7 +194,7 @@ public class Topic_08_Element_Excercise {
         Assert.assertTrue(driver.findElement(By.cssSelector("li.number-char.not-completed")).isDisplayed());
         Assert.assertTrue(driver.findElement(By.cssSelector("li.special-char.not-completed")).isDisplayed());
         Assert.assertTrue(driver.findElement(By.cssSelector("li.username-check.completed")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.cssSelector("li.lowercase-char.not-completed")).isDisplayed());
+        Assert.assertTrue(driver.findElement(By.cssSelector("li.lowercase-char.completed")).isDisplayed());
 
         //8 char
         driver.findElement(By.id("new_password")).clear();
