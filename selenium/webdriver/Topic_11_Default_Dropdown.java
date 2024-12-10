@@ -15,6 +15,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.Random;
 
 public class Topic_11_Default_Dropdown {
 
@@ -65,6 +66,8 @@ public class Topic_11_Default_Dropdown {
     public void TC_02() throws InterruptedException {
         driver.get("https://demo.nopcommerce.com/");
 
+        String email = "yen" + new Random().nextInt(999) + "@gmail.com";
+
         driver.findElement(By.xpath("//a[text()='Register']")).click();
         driver.findElement(By.id("FirstName")).sendKeys("yen");
         driver.findElement(By.id("LastName")).sendKeys("dao");
@@ -78,23 +81,21 @@ public class Topic_11_Default_Dropdown {
         select = new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthYear']")));
         select.selectByVisibleText("1980");
         Assert.assertEquals(select.getOptions().size(),112);
-        driver.findElement(By.id("Email")).sendKeys("yen@gmail.com");
+        driver.findElement(By.id("Email")).sendKeys(email);
         driver.findElement(By.id("Password")).sendKeys("123456");
         driver.findElement(By.id("ConfirmPassword")).sendKeys("123456");
         driver.findElement(By.id("register-button")).click();
         Thread.sleep(2000);
 
-        Assert.assertEquals(driver.findElement(By.className("div.result")).getText(),"Your registration completed");
+        Assert.assertEquals(driver.findElement(By.cssSelector("div.result")).getText(),"Your registration completed");
 
-        driver.findElement(By.className("a.ico-account")).click();
-        select = new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthDay']")));
-        Assert.assertEquals(select.getFirstSelectedOption().getText(),"1");
-        select = new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthMonth']")));
-        Assert.assertEquals(select.getFirstSelectedOption().getText(),"May");
-        select = new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthYear']")));
-        Assert.assertEquals(select.getFirstSelectedOption().getText(),"1980");
-
-
+        driver.findElement(By.cssSelector("a.ico-account")).click();
+        // select = new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthDay']")));
+        Assert.assertEquals(new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthDay']"))).getFirstSelectedOption().getText(),"1");
+        // select = new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthMonth']")));
+        Assert.assertEquals(new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthMonth']"))).getFirstSelectedOption().getText(),"May");
+        // select = new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthYear']")));
+        Assert.assertEquals(new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthYear']"))).getFirstSelectedOption().getText(),"1980");
 
     }
 
