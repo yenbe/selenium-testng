@@ -4,6 +4,7 @@ import graphql.schema.diffing.Edge;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -15,6 +16,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Random;
 
 public class Topic_11_Default_Dropdown {
@@ -29,7 +31,7 @@ public class Topic_11_Default_Dropdown {
         edgeOptions.addArguments("--user-data-dir=C:/Users/Admin/AppData/Local/Microsoft/Edge/User Data/");
         edgeOptions.addArguments("--profile-directory=Profile 1");
         driver = new EdgeDriver(edgeOptions);
-        //driver = new FirefoxDriver();
+        // driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 
     }
@@ -63,7 +65,7 @@ public class Topic_11_Default_Dropdown {
     }
 
     @Test
-    public void TC_02() throws InterruptedException {
+    public void TC_02_NopCM() throws InterruptedException {
         driver.get("https://demo.nopcommerce.com/");
 
         String email = "yen" + new Random().nextInt(999) + "@gmail.com";
@@ -96,6 +98,23 @@ public class Topic_11_Default_Dropdown {
         Assert.assertEquals(new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthMonth']"))).getFirstSelectedOption().getText(),"May");
         // select = new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthYear']")));
         Assert.assertEquals(new Select(driver.findElement(By.cssSelector("select[name='DateOfBirthYear']"))).getFirstSelectedOption().getText(),"1980");
+
+    }
+
+    @Test
+    public void TC_03_Rode() {
+        driver.get("https://www.rode.com/wheretobuy");
+
+        new Select(driver.findElement(By.id("country"))).selectByVisibleText("Vietnam");
+        driver.findElement(By.id("map_search_query")).sendKeys("Ho chi minh");
+        driver.findElement(By.cssSelector("button.btn-default")).click();
+
+        List <WebElement> dealers = driver.findElements(By.xpath("//h3[text()='Dealers']/following-sibling::div//h4"));
+        Assert.assertEquals(dealers.size(),16);
+
+        for (WebElement element: dealers) {
+            System.out.println(element.getText());
+        }
 
     }
 
