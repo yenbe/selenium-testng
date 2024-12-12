@@ -32,20 +32,22 @@ public class Topic_12_Custom_Dropdown {
     public void TC_01_JQuery() throws InterruptedException {
 
         driver.get("http://jqueryui.com/resources/demos/selectmenu/default.html");
-        selectSpeedDropdown("Slower");
-        selectSpeedDropdown("Slow");
-        selectSpeedDropdown("Fast");
+
+        selectCustomDropdown("span#speed-button", "ul#speed-menu>li>div","Fast");
+        selectCustomDropdown("span#number-button","ul#number-menu>li>div","15");
+        selectCustomDropdown("span#files-button","ul#files-menu>li>div","Some unknown file");
+
     }
-    private void selectSpeedDropdown(String textItem) throws InterruptedException {
+    private void selectCustomDropdown(String parentCss, String childCss, String textItem) throws InterruptedException {
         // Chờ cho dropdown có thể thao tác lên được (clickable)
-        explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("span#speed-button>span.ui-selectmenu-icon")));
+        explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(parentCss)));
         // Click vao element cho dropdown xổ ra
-        driver.findElement(By.cssSelector("span#speed-button")).click();
+        driver.findElement(By.cssSelector(parentCss)).click();
         Thread.sleep(2000);
         // Chờ cho tat ca element dc load ra (presence)
-        explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("ul#speed-menu>li>div")));
+        explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(childCss)));
         //  Tìm item nào đúng mong đợi
-        List<WebElement> allitem = driver.findElements(By.cssSelector("ul#speed-menu>li>div"));
+        List<WebElement> allitem = driver.findElements(By.cssSelector(childCss));
         // -> 5 item
         for (WebElement item: allitem) {
             // System.out.println(item.getText());
