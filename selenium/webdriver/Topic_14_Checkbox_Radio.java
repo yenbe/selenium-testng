@@ -17,10 +17,12 @@ import java.util.List;
 public class Topic_14_Checkbox_Radio {
 
     WebDriver driver;
+    JavascriptExecutor jsExecutor;
 
     @BeforeClass
     public void beforeClass() {
         driver = new FirefoxDriver();
+        jsExecutor = (JavascriptExecutor) driver;
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
 
@@ -89,7 +91,50 @@ public class Topic_14_Checkbox_Radio {
             }
         }
     }
+        @Test
+        public void TC_03() {
+            driver.get("https://material.angular.io/components/radio/examples");
+            By radioSummer = By.cssSelector("input[value='Summer']");
+            if (!driver.findElement(radioSummer).isSelected()) {
+                driver.findElement(radioSummer).click();
+            }
+            Assert.assertTrue(driver.findElement(radioSummer).isSelected());
 
+            driver.get("https://material.angular.io/components/checkbox/examples");
+            driver.findElement(By.xpath("//label[text()='Checked']/preceding-sibling::div/input")).click();
+            driver.findElement(By.xpath("//label[text()='Indeterminate']/preceding-sibling::div/input")).click();
+    }
+
+
+        @Test
+        public void TC_04_Ubuntu() {
+            driver.get("https://login.ubuntu.com/");
+
+            By newuserRadio = By.cssSelector("input#id_new_user");
+            // dung duy nhat the input de click va verify dung js Executor
+            jsExecutor.executeScript("arguments[0].click();", driver.findElement(newuserRadio));
+            Assert.assertTrue(driver.findElement(newuserRadio).isSelected());
+            By termCheckbox = By.cssSelector("input#id_accept_tos");
+            jsExecutor.executeScript("arguments[0].click();", driver.findElement(termCheckbox));
+            Assert.assertTrue(driver.findElement(termCheckbox).isSelected());
+    }
+        @Test
+        public void TC_05_Docs() {
+            driver.get("https://docs.google.com/forms/d/e/1FAIpQLSfiypnd69zhuDkjKgqvpID9kwO29UCzeCVrGGtbNPZXQok0jA/viewform");
+
+            By canthoRadio = By.xpath("//div[@data-value='Cần Thơ']");
+            driver.findElement(canthoRadio).click();
+            Assert.assertEquals(driver.findElement(canthoRadio).getAttribute("aria-checked"),"true");
+
+            By quangngaiCheckbox = By.xpath("//div[@aria-label='Quảng Ngãi']");
+            if (driver.findElement(quangngaiCheckbox).getAttribute("aria-checked").equals("false")) {
+                driver.findElement(quangngaiCheckbox).click();
+            }
+            Assert.assertEquals(driver.findElement(quangngaiCheckbox).getAttribute("aria-checked"),"true");
+            if (driver.findElement(quangngaiCheckbox).getAttribute("aria-checked").equals("true")) {
+                driver.findElement(quangngaiCheckbox).click();
+            }
+        }
     @AfterClass
     public void afterClass() {
 
