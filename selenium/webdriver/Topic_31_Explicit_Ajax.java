@@ -65,8 +65,13 @@ public class Topic_31_Explicit_Ajax {
         Assert.assertTrue(explicitWait.until(ExpectedConditions.invisibilityOfElementLocated
                         (By.cssSelector("main#index_main>div#index_loader>div.animate-spin"))));
         driver.findElement(By.xpath("//input[@type='file']")).sendKeys(ninhbinhPath + "\n" + beachPath );
-
-
+        Assert.assertTrue(explicitWait.until(ExpectedConditions.invisibilityOfAllElements
+                (driver.findElements(By.cssSelector("div.file-progressbar")))));
+        explicitWait.until(ExpectedConditions.elementToBeClickable
+                (By.xpath("//div[@class='flex items-center text-sm']/a"))).click();
+        Assert.assertTrue(explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("div#filemanager_loading"))));
+        Assert.assertTrue(driver.findElement(By.xpath("//a[text() = '" + ninhbinh +"']")).isDisplayed());
+        Assert.assertTrue(driver.findElement(By.xpath("//a[text() = '" + beach +"']")).isDisplayed());
 
     }
 

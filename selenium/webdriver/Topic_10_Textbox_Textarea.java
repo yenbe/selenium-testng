@@ -51,7 +51,8 @@ public class Topic_10_Textbox_Textarea {
         driver.findElement(By.cssSelector("button[title='Register']")).click();
         Assert.assertEquals(driver.findElement(By.cssSelector("li.success-msg span")).getText(),
                 "Thank you for registering with Main Website Store.");
-        String ContactInfo = driver.findElement(By.xpath("//h3[text()='Contact Information']/parent::div/following-sibling::div/p")).getText();
+        String ContactInfo = driver.findElement(By.xpath("//h3[text()='Contact Information']" +
+                "/parent::div/following-sibling::div/p")).getText();
         Assert.assertTrue(ContactInfo.contains(fullname));
         Assert.assertTrue(ContactInfo.contains(emailAddress));
 
